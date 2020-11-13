@@ -226,7 +226,7 @@ npm install @urusov/ns-js
 Then in `main` file you need to require `namespace-js` module, which will define global functions.
 
 ```js
-require('ns-js');
+require('@urusov/ns-js');
 ```
 
 After this you need to define application autoloads paths
