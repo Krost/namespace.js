@@ -1,0 +1,26 @@
+{
+    "name":        "ns-js",
+    "version":     "1.0.0",
+    "description": "Namespace with autoloading",
+    "main":        "namespace.js",
+    "directories": {
+        "example": "examples"
+    },
+    "scripts":     {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository":  {
+        "type": "git",
+        "url":  "git+https://github.com/Krost/namespace.js.git"
+    },
+    "keywords":    [
+        "Namespace",
+        "autoloading"
+    ],
+    "author":      "Andrew Urusov <krost.mail@gmail.com>",
+    "license":     "MIT",
+    "bugs":        {
+        "url": "https://github.com/Krost/namespace.js/issues"
+    },
+    "homepage":    "https://github.com/Krost/namespace.js#readme"
+}
