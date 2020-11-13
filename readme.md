@@ -218,7 +218,7 @@ Of course! If you pack files in single - namespace will check all definitions an
 #### Installation
 
 ```js
-npm install ns-js
+npm install @urusov/ns-js
 ```
 
 #### Usage
