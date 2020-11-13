@@ -1,0 +1,3 @@
+namespace('app.Config', {
+    path: '/',
+});
