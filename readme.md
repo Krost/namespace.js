@@ -218,7 +218,7 @@ Of course! If you pack files in single - namespace will check all definitions an
 #### Installation
 
 ```js
-npm install namespace-js
+npm install ns-js
 ```
 
 #### Usage
@@ -226,7 +226,7 @@ npm install namespace-js
 Then in `main` file you need to require `namespace-js` module, which will define global functions.
 
 ```js
-require('namespace-js');
+require('ns-js');
 ```
 
 After this you need to define application autoloads paths
