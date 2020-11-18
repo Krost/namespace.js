@@ -223,7 +223,7 @@ npm install unamespace
 
 #### Usage
 
-Then in `main` file you need to require `namespace-js` module, which will define global functions.
+Then in `main` file you need to require `unamespace` module, which will define global functions.
 
 ```js
 require('unamespace');
