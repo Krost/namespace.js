@@ -1,5 +1,5 @@
 {
-    "name":        "@urusov/ns-js",
+    "name":        "unamespace",
     "version":     "1.0.0",
     "description": "Namespace with autoloading",
     "main":        "namespace.js",

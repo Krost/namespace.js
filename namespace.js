@@ -1,11 +1,11 @@
 /**
- * ns-js | namespace
+ * ns-js | namespace | unamespace
  *
  * Namespace with autoloading
  *
  * @author  Andrew Urusov <krost.mail@gmail.com>
  * @link    http://github.com/krost/namespace-js
- * @package	ns-js
+ * @package	unamespace
  * @licence MIT
  */
 (function(launchMode, global) {

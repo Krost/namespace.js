@@ -218,7 +218,7 @@ Of course! If you pack files in single - namespace will check all definitions an
 #### Installation
 
 ```js
-npm install @urusov/ns-js
+npm install unamespace
 ```
 
 #### Usage
@@ -226,7 +226,7 @@ npm install @urusov/ns-js
 Then in `main` file you need to require `namespace-js` module, which will define global functions.
 
 ```js
-require('@urusov/ns-js');
+require('unamespace');
 ```
 
 After this you need to define application autoloads paths
