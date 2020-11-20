@@ -88,7 +88,7 @@ namespace(
 );
 ```
 
-Also you can use definition object. When you pass just single argument in namespace method - it returns definition object that has 3 method: `use`, `is`, `define`. `define` method works like factory (you need to pass object or function as this method argument).
+Also you can use definition object. When you pass just a single argument in namespace method - it returns definition object that has 3 methods: `use`, `is`, `define`. `define` method works like factory (you need to pass object or function as this method argument).
 
 ```js
 namespace('app.Config').define({
@@ -170,7 +170,7 @@ namespace('app.App')
 .use('app.Config')
 .use('app.Router')
 .define(function(Config, Router) {
-	return {
+    return {
         start: function() {}
     }
 });
