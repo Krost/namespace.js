@@ -213,6 +213,36 @@
 
 
     /**
+     * Define helper
+     * @param $factory
+     * @param namespace
+     */
+    var $definition = function($factory, namespace) {
+        var self    = this;
+        var args    = [ namespace ];
+        Object.assign(self, {
+            use: function(name) {
+                args.push('use:' + name);
+                return self;
+            },
+
+            is: function(name) {
+                args.push('is:' + name);
+                return self;
+            },
+
+            define: function(object) {
+                if (!$is._object(object) && !$is._function(object)) {
+                    throw 'Invalid definition type';
+                }
+                args.push(object);
+                $factory.apply($$, args);
+            }
+        });
+    }
+
+
+    /**
      * Object access general collection
      */
     var $object = {
@@ -338,21 +368,27 @@
 
         // Private methods
         _namespace: function() {
-            if (arguments.length < 2)
+            if (arguments.length < 1)
                 throw 'To few arguments in namespace method';
 
             // Get current namespace and object factory
-            var name    = arguments[0].split(':');
-            var gname   = name.length > 1 ? name[1] : false;
-                name    = name[0];
-            var factory = arguments[arguments.length - 1];
-            var uses    = [true];
+            var name  = arguments[0].split(':');
+            var gname = name.length > 1 ? name[1] : false;
+                 name = name[0];
+            if (!$is._string(name))
+                throw 'Invalid name type (string expected)';
 
             // set namespace module
             setModule(name, getCallerFile());
 
-            if (!$is._string(name))
-                throw 'Invalid name type (string expected)';
+            // Check arguments count
+            if (arguments.length === 1) {
+                return new $definition($factory._namespace, name);
+            }
+
+            // Get factory
+            var factory = arguments[arguments.length - 1];
+            var uses    = [true];
             if (!$is._function(factory) && !$is._object(factory))
                 throw 'Invalid factory type (function|object expected)';
 

@@ -88,8 +88,26 @@ namespace(
 );
 ```
 
+Also you can use definition object. When you pass just single argument in namespace method - it returns definition object that has 3 method: `use`, `is`, `define`. `define` method works like factory (you need to pass object or function as this method argument).
+
+```js
+namespace('app.Config').define({
+    name: 'Application'
+});
+```
+
+```js
+namespace('app.Router')
+.use('app.Config')
+.use('app.Path')
+.define(function(Config, Path) {
+    // You need to return object here because usage list not empty
+    return {};
+});
+```
 
 # Examples
+
 #### Define new object
 
 ```js
@@ -110,6 +128,12 @@ namespace('app.components.Component', function() {
 ```js
 namespace('app.components.User', class User {
     
+});
+```
+
+```js
+namespace('app.Config').define({
+    name: 'Application'
 });
 ```
 
@@ -141,7 +165,19 @@ namespace('app.components.Component', 'app.components.Base', function(Base) {
 });
 ```
 
+```js
+namespace('app.App')
+.use('app.Config')
+.use('app.Router')
+.define(function(Config, Router) {
+	return {
+        start: function() {}
+    }
+});
+```
+
 #### Usage in {main}
+
 ```js
 use('app.components.Component', function(Component) {
     // This is {main} method in your application
