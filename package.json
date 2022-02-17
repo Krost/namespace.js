@@ -1,6 +1,6 @@
 {
     "name":        "unamespace",
-    "version":     "1.0.3",
+    "version":     "1.2.0",
     "description": "Namespace with autoloading",
     "main":        "namespace.js",
     "directories": {
