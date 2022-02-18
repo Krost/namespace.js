@@ -7,13 +7,13 @@
  * @link    https://github.com/krost/namespace.js
  * @package	unamespace
  * @licence MIT
- * @version 1.2.1
+ * @version 1.3.0
  */
 (function($launchMode, global) {
     "use strict";
 
     // Version
-    let version      = '1.2.1';
+    let version      = '1.3.0';
 
     // Dom start event and ready state
     let $startEvent  = 'DOMContentLoaded';
