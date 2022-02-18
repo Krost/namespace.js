@@ -7,13 +7,13 @@
  * @link    https://github.com/krost/namespace.js
  * @package	unamespace
  * @licence MIT
- * @version 1.2.0
+ * @version 1.2.1
  */
 (function($launchMode, global) {
     "use strict";
 
     // Version
-    let version      = '1.2.0';
+    let version      = '1.2.1';
 
     // Dom start event and ready state
     let $startEvent  = 'DOMContentLoaded';
@@ -56,7 +56,7 @@
     /**
      * Object.assign method add
      */
-    Object.assign = Object.assign !== undefined ? Object.assign : () => {
+    Object.assign = Object.assign !== undefined ? Object.assign : function() {
         let target = arguments[0] || null;
         if (!target) { throw 'Invalid assign target'; }
         for (let i = 1; i < arguments.length; i++) {
