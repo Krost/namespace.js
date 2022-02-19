@@ -7,13 +7,13 @@
  * @link    https://github.com/krost/namespace.js
  * @package	unamespace
  * @licence MIT
- * @version 1.3.0
+ * @version 1.3.2
  */
 (function($launchMode, global) {
     "use strict";
 
     // Version
-    let version      = '1.3.0';
+    let version      = '1.3.2';
 
     // Dom start event and ready state
     let $startEvent  = 'DOMContentLoaded';
@@ -182,19 +182,13 @@
 
 
     /**
-     * scripts autoloader
+     * resolve path by name
      */
-    const $autoload = (name) => {
-        if ($loaded[name]) return;
-        $loaded[name] = true;
-
+    const $resolve = (name) => {
         let aname = name.split('.');
         let file  = [ aname.pop() + '.js' ];
         let path, _name, left;
 
-        debug.log('autoload start `' + name + '`');
-
-        // build file path
         do {
             left = aname.join('.');
             if (_name) file.unshift(_name);
@@ -202,6 +196,19 @@
             path = $autoloads[left] + '/' + file.join('/');
             break;
         } while(_name = aname.pop());
+        return path ? path : null;
+    };
+
+    /**
+     * scripts autoloader
+     */
+    const $autoload = (name) => {
+        if ($loaded[name]) return;
+        $loaded[name] = true;
+
+        debug.log('autoload start `' + name + '`');
+
+        let path = $resolve(name);
         if (!path && $is.http()) {
             return debug.log('autoload failed `' + name + '` - empty path');
         }
@@ -594,6 +601,40 @@
                 throw 'Invalid `autoload` argument type (expected object), got ' + (typeof arguments[0]);
             Object.assign($autoloads, arguments[0]);
             debug.log('register new autoload:', arguments[0]);
+            return $namespace;
+        },
+
+        /**
+         * Resolve filename by defined autoloads
+         * @param {String} name
+         * @returns {String | null}
+         */
+        resolve(name) {
+            return $resolve(name);
+        },
+
+        /**
+         * Modify global require function and allow load files by it names
+         */
+        resolveForRequire() {
+            if ($is.http())
+                throw 'Resolving for require is not available in HTTP mode';
+            let Module               = require('module');
+            let _require             = Module.prototype.require;
+            Module.prototype.require = function resolveNamespace() {
+                if (arguments.length < 1)
+                    throw 'Invalid arguments length for require';
+                let names  = $is._array(arguments[0]) ? arguments[0] : arguments;
+                let loaded = [];
+                for (let i = 0; i < names.length; i++) {
+                    if (!$is._string(names[i]))
+                        throw 'Invalid argument type in use method (string expected)';
+                    let filename = $resolve(names[i]);
+                        filename = filename ? filename : names[i];
+                    loaded.push(_require.call(this, filename));
+                }
+                return loaded.length > 1 ? loaded : loaded.shift();
+            }
             return $namespace;
         },
 

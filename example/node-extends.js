@@ -1,4 +1,5 @@
 require('../namespace.js');
 namespace.autoload({ 'app': __dirname + '/app' }).resolveForRequire();
-let app = require('app.App');
-app.start();
+let user   = require('app.model.User');
+let andrew = new user();
+console.log(andrew);

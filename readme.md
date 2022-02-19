@@ -42,6 +42,25 @@ console.log(namespace.autoload());      // Will return all registered paths - { 
 
 Previous global alias for this method is `autoload`, but it's deprecated and will remove in future releases.
 
+### namespace.resolve(name)
+
+Return filename by passed name. If filename is not resolved return null.
+
+```js
+namespace.autoload({ 'app': '/app' });
+console.log(namespace.resolve('app.App')); // Output - /app/App.js
+```
+
+### namespace.resolveForRequire()
+
+Modify global `require` function and allow it resolve filename by registered namespace. Available only for NodeJS.
+
+```js
+namespace.autoload({ 'app': __dirname + '/app' }).resolveForRequire();
+let app = require('app.App'); // Will require file by path __dirname + '/app/App.js'
+let [ user, config ] = require([ 'app.model.User', 'app.Config' ]); // Will return array and unpack it to variables
+```
+
 ### namespace.app(name)
 
 Register global alias for internal object storage.
@@ -421,5 +440,21 @@ namespace('app.model.User', function(id) {
 var User   = require('./app/model/User.js');
 var andrew = new User(1);
 console.log(andrew.id);
+```
+
+When you modify global `require` function by `resolveForRequire` calling, you can define classes like this
+
+```js
+// ./app/model/Base.js
+namespace('app.model.Base', class {
+    db = 'main';
+});
+```
+
+```js
+// ./app/model/User.js
+namespace('app.model.User' class extends require('app.model.Base') {
+    table = 'user';
+});
 ```
 
