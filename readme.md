@@ -453,7 +453,7 @@ namespace('app.model.Base', class {
 
 ```js
 // ./app/model/User.js
-namespace('app.model.User' class extends require('app.model.Base') {
+namespace('app.model.User', class extends require('app.model.Base') {
     table = 'user';
 });
 ```
