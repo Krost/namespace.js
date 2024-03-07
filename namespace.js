@@ -7,13 +7,13 @@
  * @link    https://github.com/krost/namespace.js
  * @package	unamespace
  * @licence MIT
- * @version 1.3.2
+ * @version 1.3.3
  */
 (function($launchMode, global) {
     "use strict";
 
     // Version
-    let version      = '1.3.2';
+    let version      = '1.3.3';
 
     // Dom start event and ready state
     let $startEvent  = 'DOMContentLoaded';
@@ -29,6 +29,7 @@
 
     // Autoloads paths
     let $autoloads   = {};
+    let $loadtype    = 'text/javascript';
 
     // Already loaded files
     let $loaded      = {};
@@ -216,7 +217,7 @@
         // load by http
         if ($is.http()) {
             let script  = document.createElement('script');
-            script.type = 'text/javascript';
+            script.type = $loadtype;
             script.src  = path + '?' + Math.random();
             script.addEventListener('load', () => {
                 debug.log('autoload complete `' + name + '` from `' + path + '`');
@@ -329,6 +330,8 @@
                 throw 'Global item `' + gname + '` already exists!';
 
             factory = $is._async(factory) ? await factory() : factory;
+            if (!$is._function(factory) && !$is._object(factory))
+                throw 'Invalid factory for `' + name + '`';
 
             _$$[objectName] = factory;
             if (gname && gname.length !== 0)
@@ -600,6 +603,8 @@
             if (!$is._object(arguments[0]))
                 throw 'Invalid `autoload` argument type (expected object), got ' + (typeof arguments[0]);
             Object.assign($autoloads, arguments[0]);
+            if (arguments.length === 2)
+                $loadtype = arguments[1];
             debug.log('register new autoload:', arguments[0]);
             return $namespace;
         },

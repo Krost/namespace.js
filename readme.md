@@ -35,9 +35,10 @@ Previous global alias for this method is `listen`, but it's deprecated and will 
 Register new autoloader paths, return path for specified name or return all paths.
 
 ```js
-namespace.autoload({ 'app': '/app' });  // This is register new autoloader path for `app.*` objects
-console.log(namespace.autoload('app')); // Will return path for `app` - '/app'
-console.log(namespace.autoload());      // Will return all registered paths - { 'app': '/app' }
+namespace.autoload({ 'app': '/app' });           // This is register new autoloader path for `app.*` objects
+namespace.autoload({ 'app': '/app' }, 'module'); // Will attach all scripts with type = 'module' (default is 'text/javascript')
+console.log(namespace.autoload('app'));          // Will return path for `app` - '/app'
+console.log(namespace.autoload());               // Will return all registered paths - { 'app': '/app' }
 ```
 
 Previous global alias for this method is `autoload`, but it's deprecated and will remove in future releases.
